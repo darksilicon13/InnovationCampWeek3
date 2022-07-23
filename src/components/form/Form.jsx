@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+
+// 클래스 컴포넌트
 // class Form extends Component {
 //     constructor(props) {
 //         super(props);

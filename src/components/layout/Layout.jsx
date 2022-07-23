@@ -4,6 +4,8 @@ import Header from '../header/Header';
 import Form from '../form/Form';
 import Todo from '../todo/Todo';
 
+
+// 클래스 컴포넌트
 // class Layout extends Component {
 //     constructor(props) {
 //         super(props);
@@ -57,45 +59,44 @@ import Todo from '../todo/Todo';
 // }
 
 const Layout = (props) => {
-    const [state, setState]  = React.useState({
-        list: [
+
+    const [list, setList] = React.useState([
         {'title' : '리덕스 공부하기', 
         'description' : '리덕스 기초를 공부해봅시다', 
         isDone : false},
         {'title' : '리액트 공부하기', 
         'description' : '리액트 기초를 공부해봅시다', 
         isDone : true},
-    ]
-    });
+    ])
 
     const addCard = (title, description) => {
         let card = {'title': title, 'description': description, isDone : false};
-        setState({list : [...state.list, card]});
+        setList([...list, card]);
     }
 
     const completeCard = (idx) => {
-        let new_list = [...state.list];
+        let new_list = [...list];
         new_list[idx].isDone = true;
-        setState({list : new_list});
+        setList(new_list);
     }
 
     const cancelCard = (idx) => {
-        let new_list = [...state.list];
+        let new_list = [...list];
         new_list[idx].isDone = false;
-        setState({list : new_list});
+        setList(new_list);
     }
 
     const deleteCard = (idx) => {
-        let new_list = [...state.list];
+        let new_list = [...list];
         new_list.splice(idx, 1);
-        setState({list : new_list});
+        setList(new_list);
     }
 
     return (
         <div className='layout'>
             <Header/>
             <Form addCard={addCard}/>
-            <Todo list={state.list} complete={completeCard} cancel={cancelCard} delete={deleteCard}/>
+            <Todo list={list} complete={completeCard} cancel={cancelCard} delete={deleteCard}/>
         </div>
     );
 }

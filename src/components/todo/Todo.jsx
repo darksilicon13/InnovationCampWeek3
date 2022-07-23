@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 
+// 클래스 컴포넌트
 // class Todo extends Component {
 //     render() {
 //         return (
