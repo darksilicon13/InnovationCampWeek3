@@ -1,68 +1,27 @@
 import React from 'react';
 import './style.css';
-
-// 클래스 컴포넌트
-// class Todo extends Component {
-//     render() {
-//         return (
-//             <div className='todo-container'>
-//                 <h2 className='working-title'>Working..🛠</h2>
-//                 <div className='working-list'>
-
-//                     {this.props.list.map((v, i) => {
-//                         if (!v.isDone) {
-//                             return (
-//                                 <div key={i} className='working-card'>
-//                                     <h2 className='card-title'>{v.title}</h2>
-//                                     <p>{v.description}</p>
-//                                     <div className='buttons'>
-//                                         <button className="delete-btn" onClick={() => { this.props.delete(i) }}>삭제하기</button>
-//                                         <button className="complete-btn" onClick={() => { this.props.complete(i) }}>완료</button>
-//                                     </div>
-//                                 </div>
-//                             )
-//                         }
-//                         return null;
-//                     })}
-
-//                 </div>
-//                 <h2 className="done-title">Done..!🎉</h2>
-//                 <div className='done-list'>
-//                     {this.props.list.map((v, i) => {
-//                         if (v.isDone) {
-//                             return (
-//                                 <div key={i} className='working-card'>
-//                                     <h2 className='card-title'>{v.title}</h2>
-//                                     <p>{v.description}</p>
-//                                     <div className='buttons'>
-//                                         <button className="delete-btn" onClick={() => { this.props.delete(i) }}>삭제하기</button>
-//                                         <button className="cancel-btn" onClick={() => { this.props.cancel(i) }}>취소</button>
-//                                     </div>
-//                                 </div>
-//                             )
-//                         }
-//                         return null;
-//                     })}
-//                 </div>
-//             </div>);
-//     }
-// }
+import {useSelector, useDispatch} from 'react-redux';
+import {updateTodo, deleteTodo} from '../../redux/modules/todo';
 
 const Todo = (props) => {
+    const dispatch = useDispatch();
+    const todos = useSelector(state=>state.todo.list);
+    console.log(todos);
+
     return (
         <div className='todo-container'>
             <h2 className='working-title'>Working..🛠</h2>
             <div className='working-list'>
 
-                {props.list.map((v, i) => {
+                {todos.map((v, i) => {
                     if (!v.isDone) {
                         return (
                             <div key={i} className='working-card'>
                                 <h2 className='card-title'>{v.title}</h2>
                                 <p>{v.description}</p>
                                 <div className='buttons'>
-                                    <button className="delete-btn" onClick={() => { props.delete(i) }}>삭제하기</button>
-                                    <button className="complete-btn" onClick={() => { props.complete(i) }}>완료</button>
+                                    <button className="delete-btn" onClick={() => { dispatch(deleteTodo(i)) }}>삭제하기</button>
+                                    <button className="complete-btn" onClick={() => { dispatch(updateTodo(i)) }}>완료</button>
                                 </div>
                             </div>
                         )
@@ -73,15 +32,15 @@ const Todo = (props) => {
             </div>
             <h2 className="done-title">Done..!🎉</h2>
             <div className='done-list'>
-                {props.list.map((v, i) => {
+                {todos.map((v, i) => {
                     if (v.isDone) {
                         return (
                             <div key={i} className='working-card'>
                                 <h2 className='card-title'>{v.title}</h2>
                                 <p>{v.description}</p>
                                 <div className='buttons'>
-                                    <button className="delete-btn" onClick={() => { props.delete(i) }}>삭제하기</button>
-                                    <button className="cancel-btn" onClick={() => { props.cancel(i) }}>취소</button>
+                                    <button className="delete-btn" onClick={() => { dispatch(deleteTodo(i)) }}>삭제하기</button>
+                                    <button className="cancel-btn" onClick={() => { dispatch(updateTodo(i)) }}>취소</button>
                                 </div>
                             </div>
                         )
