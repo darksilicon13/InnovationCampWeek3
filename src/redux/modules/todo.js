@@ -2,8 +2,9 @@
 
 // Actions
 const CREATE = 'todo/CREATE';
-const DELETE = 'todo/DELETE';
+const READ = 'todo/READ';
 const UPDATE = 'todo/UPDATE';
+const DELETE = 'todo/DELETE';
 
 const initialState = {
     list: [
@@ -26,12 +27,16 @@ export function createTodo(todo) {
     return { type: CREATE, todo };
 }
 
-export function deleteTodo(todo_index) {
-    return { type: DELETE, todo_index };
+export function readTodo(todo_index) {
+    return { type: READ, todo_index };
 }
 
 export function updateTodo(todo_index) {
     return { type: UPDATE, todo_index };
+}
+
+export function deleteTodo(todo_index) {
+    return { type: DELETE, todo_index };
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -40,26 +45,27 @@ export default function reducer(state = initialState, action = {}) {
             const new_todo_list = [...state.list, action.todo];
             return { list: new_todo_list };
         }
-
-        case "todo/DELETE": {
-            const new_todo_list = state.list.filter((v, i) => {
-                return i !== action.todo_index;
-            });
-            return {list: new_todo_list};
+        case "todo/READ": {
+            return {state}
         }
-
         case "todo/UPDATE": {
             const new_todo_list = state.list.map((v, i) => {
-                if(i === action.todo_index) {
-                    return {...v, isDone: !v.isDone};
+                if (i === action.todo_index) {
+                    return { ...v, isDone: !v.isDone };
                 }
                 else {
                     return v;
                 }
             });
-            return {list: new_todo_list};
+            return { list: new_todo_list };
+        }
+        case "todo/DELETE": {
+            const new_todo_list = state.list.filter((v, i) => {
+                return i !== action.todo_index;
+            });
+            return { list: new_todo_list };
         }
         default:
             return state;
-    }
+        }
 }
