@@ -67,6 +67,7 @@ const Title = styled.h2`
 const List = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
 `;
 
 const Card = styled.div`
