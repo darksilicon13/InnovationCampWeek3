@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom'
 import { updateTodo, deleteTodo } from '../../redux/modules/todo';
 
 const Todo = (props) => {
@@ -13,15 +14,16 @@ const Todo = (props) => {
             <Title>Working..🛠</Title>
             <List>
 
-                {todos.map((v, i) => {
+                {todos.map((v) => {
                     if (!v.isDone) {
                         return (
-                            <Card key={i}>
+                            <Card key={v.id}>
+                                <Link to={"/detail/"+v.id} style={{textDecoration: "none"}}>상세보기</Link>
                                 <CardTitle>{v.title}</CardTitle>
                                 <p>{v.description}</p>
                                 <ButtonGroup>
-                                    <DeleteBtn onClick={() => { dispatch(deleteTodo(i)) }}>삭제하기</DeleteBtn>
-                                    <CompleteBtn onClick={() => { dispatch(updateTodo(i)) }}>완료</CompleteBtn>
+                                    <DeleteBtn onClick={() => { dispatch(deleteTodo(v.id)) }}>삭제하기</DeleteBtn>
+                                    <CompleteBtn onClick={() => { dispatch(updateTodo(v.id)) }}>완료</CompleteBtn>
                                 </ButtonGroup>
                             </Card>
                         )
@@ -31,15 +33,16 @@ const Todo = (props) => {
             </List>
             <Title>Done..!🎉</Title>
             <List>
-                {todos.map((v, i) => {
+                {todos.map((v) => {
                     if (v.isDone) {
                         return (
-                            <Card key={i}>
+                            <Card key={v.id}>
+                                <Link to={"/detail/"+v.id} style={{textDecoration: "none"}}>상세보기</Link>
                                 <CardTitle>{v.title}</CardTitle>
                                 <p>{v.description}</p>
                                 <ButtonGroup>
-                                    <DeleteBtn onClick={() => { dispatch(deleteTodo(i)) }}>삭제하기</DeleteBtn>
-                                    <CompleteBtn onClick={() => { dispatch(updateTodo(i)) }}>취소</CompleteBtn>
+                                    <DeleteBtn onClick={() => { dispatch(deleteTodo(v.id)) }}>삭제하기</DeleteBtn>
+                                    <CompleteBtn onClick={() => { dispatch(updateTodo(v.id)) }}>취소</CompleteBtn>
                                 </ButtonGroup>
                             </Card>
                         )

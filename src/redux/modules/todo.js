@@ -9,16 +9,19 @@ const DELETE = 'todo/DELETE';
 const initialState = {
     list: [
         {
+            id: '1',
             title: '리덕스 공부하기',
             description: '리덕스 기초를 공부해봅시다',
             isDone: false
         },
         {
+            id: '2',
             title: '리액트 공부하기',
             description: '리액트 기초를 공부해봅시다',
             isDone: true
         },
-    ]
+    ],
+    current: {}
 }
 
 
@@ -27,45 +30,47 @@ export function createTodo(todo) {
     return { type: CREATE, todo };
 }
 
-export function readTodo(todo_index) {
-    return { type: READ, todo_index };
+export function readTodo(todo_id) {
+    return { type: READ, todo_id };
 }
 
-export function updateTodo(todo_index) {
-    return { type: UPDATE, todo_index };
+export function updateTodo(todo_id) {
+    return { type: UPDATE, todo_id };
 }
 
-export function deleteTodo(todo_index) {
-    return { type: DELETE, todo_index };
+export function deleteTodo(todo_id) {
+    return { type: DELETE, todo_id };
 }
 
 export default function reducer(state = initialState, action = {}) {
     switch (action.type) {
         case "todo/CREATE": {
             const new_todo_list = [...state.list, action.todo];
-            return { list: new_todo_list };
+            return { ...state, list: new_todo_list };
         }
         case "todo/READ": {
-            return {state}
+            const target_todo = state.list.filter((v) => v.id === action.todo_id)[0];
+
+            return { ...state, current: target_todo };
         }
         case "todo/UPDATE": {
-            const new_todo_list = state.list.map((v, i) => {
-                if (i === action.todo_index) {
+            const new_todo_list = state.list.map((v) => {
+                if (v.id === action.todo_id) {
                     return { ...v, isDone: !v.isDone };
                 }
                 else {
                     return v;
                 }
             });
-            return { list: new_todo_list };
+            return { ...state, list: new_todo_list };
         }
         case "todo/DELETE": {
-            const new_todo_list = state.list.filter((v, i) => {
-                return i !== action.todo_index;
+            const new_todo_list = state.list.filter((v) => {
+                return v.id !== action.todo_id;
             });
-            return { list: new_todo_list };
+            return { ...state, list: new_todo_list };
         }
         default:
             return state;
-        }
+    }
 }

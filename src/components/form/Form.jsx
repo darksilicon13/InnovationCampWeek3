@@ -12,7 +12,8 @@ const Form = (props) => {
         if(title.current.value === '' || desc.current.value === '') {
             return;
         }
-        dispatch(createTodo({title: title_val, description: desc_val, isDone: false}));
+        const new_id = new Date().toISOString();
+        dispatch(createTodo({id: new_id, title: title_val, description: desc_val, isDone: false}));
         title.current.value ='';
         desc.current.value = '';
     }

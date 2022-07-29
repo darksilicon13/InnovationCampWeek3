@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Layout from '../components/layout/Layout';
 import Detail from '../components/detail/Detail';
 import store from '../redux/configStore'
+import NotFound from './NotFound';
 
 
 class TodoList extends Component {
@@ -15,7 +16,8 @@ class TodoList extends Component {
                     <Provider store={store}>
                         <Routes>
                             <Route path='/' element={<Layout />}/>
-                            <Route path='/detail/:index' element={<Detail/>}/>
+                            <Route path='/detail/:id' element={<Detail/>}/>
+                            <Route path='*' element={<NotFound/>}/>
                         </Routes>
                     </Provider>
                 </BrowserRouter>
