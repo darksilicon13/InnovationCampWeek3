@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
-import { updateTodo, deleteTodo } from '../../redux/modules/todo';
+import { updateTodo, deleteTodo } from '../../redux/modules/todoSlice';
 
-const Todo = (props) => {
+const Todo = () => {
     const dispatch = useDispatch();
-    const todos = useSelector(state => state.todo.list);
+    const todos = useSelector(state => state.todos.list);
     console.log(todos);
 
     return (

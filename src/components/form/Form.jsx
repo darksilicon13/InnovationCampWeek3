@@ -1,18 +1,18 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
-import {createTodo} from '../../redux/modules/todo'
+import {createTodo} from '../../redux/modules/todoSlice';
 import {useDispatch} from 'react-redux';
 
 const Form = (props) => {
     const dispatch = useDispatch();
-    const title = React.createRef(null);
-    const desc = React.createRef(null);
+    const title = useRef(null);
+    const desc = useRef(null);
     
     const addTodoCard = (title_val, desc_val) => {
         if(title.current.value === '' || desc.current.value === '') {
             return;
         }
-        const new_id = new Date().toISOString();
+        const new_id = Date.now().toString();
         dispatch(createTodo({id: new_id, title: title_val, description: desc_val, isDone: false}));
         title.current.value ='';
         desc.current.value = '';

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { readTodo } from '../../redux/modules/todo';
+import { readTodo } from '../../redux/modules/todoSlice';
 
 const Detail = (props) => {
     const params = useParams();
@@ -13,7 +13,7 @@ const Detail = (props) => {
     // const todo_list = useSelector(state => state.todo.list);
     // const target_todo = todo_list.filter((v) => v.id === todo_id);
     // console.log(target_todo);
-    const cur_todo = useSelector(state=>state.todo.current);
+    const cur_todo = useSelector(state=>state.todos.current);
 
     return (
         <DetailContainer>
